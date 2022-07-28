@@ -1,0 +1,47 @@
+<div [ngClass]="isDarkTheme? 'dark-theme' : 'light-theme'">
+  <mat-toolbar>
+  <h2>&nbsp;Datatable with search, and pagination</h2>
+  <span class="example-spacer"></span>
+</mat-toolbar>
+<mat-card>
+  <mat-card-content>
+    <mat-slide-toggle (click)="togglebutton()">{{title}}</mat-slide-toggle>
+  </mat-card-content>
+</mat-card>
+<mat-card>
+<mat-form-field appearance="standard">
+  <mat-label>Filter Table</mat-label>
+  <input matInput placeholder="search"  (keyup)="applyFilter($event)">
+</mat-form-field>
+</mat-card>
+
+
+
+<div class="mat-elevation-z8">
+  <table mat-table matSort [dataSource]="dataSource">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="">ID</th>
+      <td mat-cell *matCellDef="let row">{{row.id}}</td>
+    </ng-container>
+    <ng-container matColumnDef="userId">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="">User Id</th>
+      <td mat-cell *matCellDef="let row">{{row.userId}}</td>
+    </ng-container>
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="" 
+      >Title</th>
+      <td mat-cell *matCellDef="let row">{{row.title}}</td>
+    </ng-container>
+   
+    <ng-container matColumnDef="body">
+      
+      <th mat-header-cell *matHeaderCellDef mat-sort-header=""> Body</th>
+      <td mat-cell *matCellDef="let row">{{row.body}}</td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumn"></tr>
+    <tr mat-row *matRowDef="let row; columns:displayedColumn"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[6,10,25,75,100]" aria-label="select page of users"></mat-paginator>
+
+  <router-outlet></router-outlet>
+</div>
